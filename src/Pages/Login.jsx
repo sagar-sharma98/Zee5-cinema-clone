@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   Box,
   Button,
@@ -6,10 +6,8 @@ import {
   Flex,
   Heading,
   Input,
-  Text,
-  useToast
+  Text
 } from "@chakra-ui/react";
-import { AuthContext } from "../Context/AuthContext/AuthContext";
 import { FaApple } from "react-icons/fa";
 import { AiFillGoogleCircle } from "react-icons/ai";
 import { BsFacebook } from "react-icons/bs";
@@ -17,11 +15,13 @@ import { AiFillTwitterCircle } from "react-icons/ai";
 import { CloseIcon } from "@chakra-ui/icons";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { AlertSuccess, AuthSuccess, LoginFailure, LoginSuccess } from "../Context/AuthContext/Action";
+import { signOut, signInWithEmailAndPassword } from "firebase/auth";
+import { firebaseAuth } from "../firebase-auth";
+import { AuthContext } from "../Context/AuthContext/AuthContext";
+import { LoginSuccess } from "../Context/AuthContext/Action";
+
 export default function Login() {
-  const toast = useToast();
-  const { dispatch } = useContext(AuthContext);
+  const {dispatch} = useContext(AuthContext);
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -38,46 +38,26 @@ export default function Login() {
   };
 
   const handleClick = async () => {
-    axios({
-      method: "POST",
-      url: "https://reqres.in/api/register",
-      data: loginData,
-    })
-      .then((res) => {
-        console.log(res.data.token);
-        dispatch(LoginSuccess(res.data.token));
-        dispatch(AuthSuccess(true));
+    dispatch(LoginSuccess(true));
+    try {
+      await signInWithEmailAndPassword(firebaseAuth, loginData.email, loginData.password);
+     alert("login success");
+     navigate("/");
 
-        setLoginData({
-          email: "",
-          password: "",
-        });
-        toast({
-          title: "Welcome Back Buddy !",
-          description: "Enjoy Your Favourite Content",
-          status: "success",
-          duration: 4000,
-          position: ["top"],
-          isClosable: true,
-        });
-        navigate("/");
-      })
-      .catch((err) => {
-        console.log(err);
-        dispatch(LoginFailure(true));
-        toast({
-          title: "Error..!",
-          description: "Enter Valid Credentials !",
-          status: "error",
-          duration: 4000,
-          position: ["top"],
-          isClosable: true,
-        });
-      })
-      .finally(() => {
-        console.log("Success");
-      });
+   } catch (error) {
+     alert("please register");
+     navigate("/register");
+     console.log(error);
+   }
   };
+
+  const logoutHandler = () => {
+    setLogin(false);
+    signOut(firebaseAuth);
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/");
+  }
 
   return (
     <Box>
@@ -162,7 +142,7 @@ export default function Login() {
           </Text>
         </Box>
         <Box mt="2rem">
-          <Button
+           <Button
             bg="#8230C6"
             color="white"
             size="md"

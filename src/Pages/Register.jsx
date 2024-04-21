@@ -8,25 +8,18 @@ import {
   Heading,
   Image,
   Input,
-  Text,
-  useToast
+  Text
 } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 import { CloseIcon } from "@chakra-ui/icons";
-import { useState, useContext } from "react";
-import { AuthContext } from "../Context/AuthContext/AuthContext";
-import {
-  LoginSuccess,
-  AuthSuccess,
-  AlertSuccess,
-  LoginFailure,
-} from "../Context/AuthContext/Action";
+import { useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { firebaseAuth } from "../firebase-auth";
+
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+
 
 export default function Register() {
-  const toast = useToast();
-  const { state, dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
   const [data, setData] = useState({
     email: "",
@@ -42,45 +35,16 @@ export default function Register() {
     });
   };
 
-  const handleClick = () => {
-    axios({
-      method: "POST",
-      url: "https://reqres.in/api/register",
-      data: data,
-    })
-      .then((res) => {
-        console.log(res.data.token);
-        dispatch(LoginSuccess(res.data.token));
-        dispatch(AuthSuccess(true));
-        setData({
-          email: "",
-          password: "",
-        });
-        toast({
-          title: "Congrats..!",
-          description: "Signup Successfull !",
-          status: "success",
-          duration: 4000,
-          position: ["top"],
-          isClosable: true,
-        });
-        navigate("/");
-      })
-      .catch((err) => {
-        console.log(err);
-        dispatch(LoginFailure(true));
-        toast({
-          title: "Error..!",
-          description: "Email is Already Registered !",
-          status: "error",
-          duration: 4000,
-          position: ["top"],
-          isClosable: true,
-        });
-      })
-      .finally(() => {
-        console.log("Success");
-      });
+  const handleClick = async() => {
+    try {
+      const userDetails =  await createUserWithEmailAndPassword(firebaseAuth, data.email, data.password);
+       console.log(userDetails);
+       localStorage.setItem("token", userDetails.user.accessToken);
+       localStorage.setItem("user", JSON.stringify(userDetails.user));
+       navigate("/login");
+     } catch (error) {
+       alert("use different email");
+     }
   };
 
   return (

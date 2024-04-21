@@ -5,10 +5,10 @@ import reducer from "./Reducer";
 export const AuthContext = createContext();
 
 const initialState={
-  token: "",
   error: false,
   auth: false,
   alert: false,
+  login: false,
 }
 
 const AuthContextProvider = ({ children }) => {

@@ -7,18 +7,31 @@ import {
   Input,
   Button,
   Icon,
-  Avatar,
-  AvatarBadge,
-  Tag,
+  Tag
 } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 import { SearchIcon } from "@chakra-ui/icons";
 import { RiVipCrownFill } from "react-icons/ri";
 import { AuthContext } from "../../Context/AuthContext/AuthContext";
+import { firebaseAuth } from "../../firebase-auth";
+import { signOut } from "firebase/auth";
+import { LoginSuccess, LoginFailure } from "../../Context/AuthContext/Action";
 import React,{useContext} from "react";
 
 export default function MenuLink() {
-  const {state} = useContext(AuthContext)
+  const {state, dispatch} = useContext(AuthContext)
+  // const loginHandler = (e) => {
+  //   dispatch(LoginSuccess(true));
+  // }
+
+  const logoutHandler = () => {
+    dispatch(LoginFailure(false));
+    signOut(firebaseAuth);
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+  }
+
+
   return (
     <Flex>
       <HStack gap="30px">
@@ -40,10 +53,19 @@ export default function MenuLink() {
         </Box>
         <Box>
         {
-          state.auth === true ? ( 
-          <Avatar bgGradient='linear(to-l, #7928CA, #FF0080)' size="md">
-            <AvatarBadge boxSize="1em" bg="green.500" />
-          </Avatar>
+          state.login === true ? (
+            <Button
+            size="sm"
+            fontSize={10}
+            color="white"
+            bg="#0F0617"
+            padding={3}
+            variant="outline"
+            onClick={logoutHandler}
+            _hover={{ background: "white", color: "black" }}
+          >
+            <NavLink to={"/login"} >LOGOUT</NavLink>
+          </Button>
           ):(
             <Button
             size="sm"
@@ -52,9 +74,10 @@ export default function MenuLink() {
             bg="#0F0617"
             padding={3}
             variant="outline"
+            // onClick={loginHandler}
             _hover={{ background: "white", color: "black" }}
           >
-            <NavLink to={"/login"}>LOGIN</NavLink>
+            <NavLink to={"/login"} >LOGIN</NavLink>
           </Button>
           )
         }
