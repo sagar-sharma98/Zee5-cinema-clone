@@ -6,7 +6,7 @@ import Movies from "./Movies"
 
 export default function Homepage() {
   return (
-    <div>
+    <div style={{position: "relative"}}>
         <Navbar />
         <SliderFunction />
         <Movies/>

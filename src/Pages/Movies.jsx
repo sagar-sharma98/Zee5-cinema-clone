@@ -29,7 +29,7 @@ export default function Movies() {
   return (
     <>
       {moviesData.length > 0 && (
-        <div style={{ marginTop: "20px" }} className="movie__rows">
+        <div style={{ marginTop: "20px", position: "relative"}} className="movie__rows" >
           <Rows
             title="Trending Now"
             movies={moviesData[0].movies}

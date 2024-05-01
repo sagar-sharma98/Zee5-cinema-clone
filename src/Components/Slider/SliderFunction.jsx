@@ -1,19 +1,30 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 // import axios from "axios";
 import "../../Styles/Components.css";
-import { Box, Center, Image } from "@chakra-ui/react";
+import { AspectRatio, Box, Center, Image, Img, Modal } from "@chakra-ui/react";
 import SliderPics from "./SliderPics";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
+import VideoPlayer from "./VideoModal";
+import VideoModal from "./VideoModal";
 export default function SliderFunction() {
   const [current, setCurrent] = useState(0);
-  // const [data,setData]=React.useState([])
+  const [imageClick, setImageClick] = useState(false);
   const slides = SliderPics;
   const length = SliderPics.length;
   let interval;
 
-//   function get(){
-//     return axios.get("https://glorious-tuna-outfit.cyclic.app/homepage")
-// //  }
+  //   function get(){
+  //     return axios.get("https://glorious-tuna-outfit.cyclic.app/homepage")
+  // //  }
+  const imageHandler = () => {
+    setImageClick(true);
+    clearInterval(interval);
+  };
+
+  const closeBtnHandler = () => {
+    setImageClick(false);
+    autoSlideNext();
+  };
 
   useEffect(() => {
     // get()
@@ -23,18 +34,16 @@ export default function SliderFunction() {
     interval = setTimeout(() => {
       autoSlideNext();
     }, 3000);
-  }, [current])
+  }, [current]);
 
-  const autoSlideNext = ()=> {
+  const autoSlideNext = () => {
     clearTimeout(interval);
     nextSlide();
-  }
-  
+  };
 
   const nextSlide = () => {
     clearTimeout(interval);
     setCurrent(current === length - 1 ? 0 : current + 1);
-    
   };
   const prevSlide = () => {
     clearTimeout(interval);
@@ -43,18 +52,37 @@ export default function SliderFunction() {
   if (!Array.isArray(slides) || slides.length <= 0) {
     return null;
   }
+
   return (
     <Box className="slider">
       <ArrowLeftIcon className="left-arrow" onClick={prevSlide} />
       <ArrowRightIcon className="right-arrow" onClick={nextSlide} />
       {slides.map((item, index) => {
         return (
-          <Center className={index === current ? 'slide active' : 'slide'}
-          key={index} >
-            {index === current && (
-              <Image bg="#0f0617" src={item.image} alt='travel image' className='image' w="200vh"/>
+          <>
+            <Center
+              className={index === current ? "slide active" : "slide"}
+              key={index}
+            >
+              {index === current && (
+                <Image
+                  bg="#0f0617"
+                  src={item.image}
+                  alt="travel image"
+                  className="image"
+                  w="200vh"
+                  onClick={imageHandler}
+                />
+              )}
+            </Center>
+            {index === current && imageClick && (
+              <VideoModal
+                id="video-player"
+                videosrc={item.videoSrc}
+                closeVideoHandler={closeBtnHandler}
+              />
             )}
-          </Center>
+          </>
         );
       })}
     </Box>
