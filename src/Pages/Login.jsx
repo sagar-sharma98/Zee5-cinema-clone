@@ -6,7 +6,8 @@ import {
   Flex,
   Heading,
   Input,
-  Text
+  Text,
+  useToast,
 } from "@chakra-ui/react";
 import { FaApple } from "react-icons/fa";
 import { AiFillGoogleCircle } from "react-icons/ai";
@@ -21,11 +22,12 @@ import { AuthContext } from "../Context/AuthContext/AuthContext";
 import { LoginSuccess } from "../Context/AuthContext/Action";
 
 export default function Login() {
-  const {dispatch} = useContext(AuthContext);
+  const { dispatch } = useContext(AuthContext);
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
+  const toast = useToast();
 
   const navigate = useNavigate();
   const handleChange = (e) => {
@@ -38,17 +40,24 @@ export default function Login() {
   };
 
   const handleClick = async () => {
-    dispatch(LoginSuccess(true));
     try {
-      await signInWithEmailAndPassword(firebaseAuth, loginData.email, loginData.password);
-     alert("login success");
-     navigate("/");
-
-   } catch (error) {
-     alert("please register");
-     navigate("/register");
-     console.log(error);
-   }
+      await signInWithEmailAndPassword(
+        firebaseAuth,
+        loginData.email,
+        loginData.password
+      );
+      navigate("/");
+    } catch (error) {
+      toast({
+        title: "Login failed.",
+        description: "Enter the correct email and password, or go to signup.",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+        position: "top",
+      });
+      console.log(error);
+    }
   };
 
   const logoutHandler = () => {
@@ -57,11 +66,11 @@ export default function Login() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     navigate("/");
-  }
+  };
 
   return (
-    <Box>
-      <Box w="90%">
+    <Box h="100vh">
+      <Box w="90%" >
         <Flex justify="right">
           <NavLink to="/">
             <CloseIcon color="white" />
@@ -142,7 +151,7 @@ export default function Login() {
           </Text>
         </Box>
         <Box mt="2rem">
-           <Button
+          <Button
             bg="#8230C6"
             color="white"
             size="md"

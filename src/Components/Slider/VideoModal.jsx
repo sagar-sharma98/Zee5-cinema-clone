@@ -20,7 +20,7 @@ export default function VideoModal({ videosrc, closeVideoHandler }) {
     >
       <CloseButton size="lg" color="white" onClick={closeVideoHandler} />
       <AspectRatio className="video_player" w="100%" h="100%">
-        <iframe src={videosrc} />
+        <iframe src={videosrc === "" ? "https://www.youtube.com/embed/nu2HHq3sens" : videosrc} />
       </AspectRatio>
     </VStack>, document.getElementById("video-modal"))
      

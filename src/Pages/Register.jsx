@@ -8,7 +8,8 @@ import {
   Heading,
   Image,
   Input,
-  Text
+  Text,
+  useToast
 } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 import { CloseIcon } from "@chakra-ui/icons";
@@ -25,7 +26,7 @@ export default function Register() {
     email: "",
     password: "",
   });
-
+  const toast = useToast();
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -37,19 +38,29 @@ export default function Register() {
 
   const handleClick = async() => {
     try {
-      const userDetails =  await createUserWithEmailAndPassword(firebaseAuth, data.email, data.password);
-       console.log(userDetails);
-       localStorage.setItem("token", userDetails.user.accessToken);
-       localStorage.setItem("user", JSON.stringify(userDetails.user));
-       navigate("/login");
-     } catch (error) {
-       alert("use different email");
-     }
+      const userDetails = await createUserWithEmailAndPassword(
+        firebaseAuth, data.email, data.password
+      );
+      console.log(userDetails);
+      localStorage.setItem("token", userDetails.user.accessToken);
+      localStorage.setItem("user", JSON.stringify(userDetails.user));
+      navigate("/login");
+    } catch (error) {
+      toast({
+        title: "Signup failed.",
+        description: "Please enter the correct details.",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+        position: "top",
+      });
+    }
+ 
   };
 
   return (
-    <Box>
-      <Box w="90%">
+    <Box h="100vh">
+      <Box w="90%" >
         <Flex justify="right">
           <NavLink to="/">
             <CloseIcon color="white" />
