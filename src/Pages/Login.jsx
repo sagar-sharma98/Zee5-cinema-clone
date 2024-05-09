@@ -46,6 +46,7 @@ export default function Login() {
         loginData.email,
         loginData.password
       );
+      dispatch(LoginSuccess(true));
       navigate("/");
     } catch (error) {
       toast({
