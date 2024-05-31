@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "../../Styles/Row.css";
 import { Box, Image, Skeleton, Stack } from "@chakra-ui/react";
-
-import VideoModal from "../Slider/VideoModal";
+import VideoPlayerPage from "../Slider/VideoPlayerPage";
+import { useNavigate } from "react-router-dom";
 
 const dummy_video = process.env.PUBLIC_URL + "/videos/Dummy_Video.mp4";
 
 const Rows = ({ movies, title, isLargeRow = false, loading }) => {
-  const [imageClick, setImageClick] = useState(false);
+  const navigate = useNavigate();
 
-  const videoModalHandler = () => {
-    setImageClick(false);
+  const imageClickHandler = (id) => {
+    navigate(`/videoplayer/${id}`);
   };
   if (loading) {
     return (
@@ -28,24 +28,16 @@ const Rows = ({ movies, title, isLargeRow = false, loading }) => {
       <Box className={`row__posters ${isLargeRow && "row__postersLarge"}`}>
         {movies
           ? movies.map((movie) => (
-           
-                <Image
-                  className={`row__poster ${isLargeRow && "row__posterLarge"}`}
-                  key={movie.id}
-                  src={isLargeRow ? movie.poster_path : movie.backdrop_path}
-                  alt={movie.original_title}
-                  onClick={() => setImageClick(true)}
-                />
-              
+              <Image
+              objectFit="cover"
+                className={`row__poster ${isLargeRow && "row__posterLarge"}`}
+                key={movie._id}
+                src={isLargeRow ? movie.thumbnail : movie.thumbnail}
+                alt={movie.title}
+                onClick={() => imageClickHandler(movie._id)}
+              />
             ))
           : ""}
-           {imageClick && (
-                  <VideoModal
-                    id="video-player"
-                    videosrc={dummy_video}
-                    closeVideoHandler={videoModalHandler}
-                  />
-                )}
         ;
       </Box>
     </Box>

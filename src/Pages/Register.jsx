@@ -9,7 +9,7 @@ import {
   Image,
   Input,
   Text,
-  useToast
+  useToast,
 } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 import { CloseIcon } from "@chakra-ui/icons";
@@ -19,10 +19,10 @@ import { firebaseAuth } from "../firebase-auth";
 
 import { useNavigate } from "react-router-dom";
 
-
 export default function Register() {
   const navigate = useNavigate();
   const [data, setData] = useState({
+    name: "",
     email: "",
     password: "",
   });
@@ -36,31 +36,51 @@ export default function Register() {
     });
   };
 
-  const handleClick = async() => {
+  const handleClick = async () => {
+    // try {
+    //   const userDetails = await createUserWithEmailAndPassword(
+    //     firebaseAuth, data.email, data.password
+    //   );
+    //   console.log(userDetails);
+    //   localStorage.setItem("token", userDetails.user.accessToken);
+    //   localStorage.setItem("user", JSON.stringify(userDetails.user));
+    //   navigate("/login");
+    // } catch (error) {
+    //   toast({
+    //     title: "Signup failed.",
+    //     description: "Please enter the correct details.",
+    //     status: "error",
+    //     duration: 9000,
+    //     isClosable: true,
+    //     position: "top",
+    //   });
+
     try {
-      const userDetails = await createUserWithEmailAndPassword(
-        firebaseAuth, data.email, data.password
+      const response = await fetch(
+        "https://academics.newtonschool.co/api/v1/user/signup",
+        {
+          method: "POST",
+          headers: {
+            'projectId': '80bobsy2tlw7'
+          },
+          body: {
+            name: "test",
+            email: data.email,
+            password: data.password,
+            appType: "ott",
+          },
+        }
       );
-      console.log(userDetails);
-      localStorage.setItem("token", userDetails.user.accessToken);
-      localStorage.setItem("user", JSON.stringify(userDetails.user));
-      navigate("/login");
+      const result = await response.json();
+      console.log(result);
     } catch (error) {
-      toast({
-        title: "Signup failed.",
-        description: "Please enter the correct details.",
-        status: "error",
-        duration: 9000,
-        isClosable: true,
-        position: "top",
-      });
+      console.log(error);
     }
- 
   };
 
   return (
     <Box h="100vh">
-      <Box w="90%" >
+      <Box w="90%">
         <Flex justify="right">
           <NavLink to="/">
             <CloseIcon color="white" />
@@ -107,6 +127,17 @@ export default function Register() {
         <Box mt="1.4rem">
           <Input
             color="white"
+            type="name"
+            name="name"
+            value={data.name}
+            onChange={(e) => handleChange(e)}
+            variant="flushed"
+            w="sm"
+            placeholder="Name"
+            focusBorderColor="red"
+          />
+          <Input
+            color="white"
             type="email"
             name="email"
             value={data.email}
@@ -132,9 +163,9 @@ export default function Register() {
         <Box ml="40px" mt="2rem">
           <Center justify="space-between">
             <Text fontSize="13px" color="white">
-              By proceeding you agree to our 
-            <span style={{color:"#A785FF",cursor:"pointer"}}>
-               -Terms of Services && Privacy Policy.
+              By proceeding you agree to our
+              <span style={{ color: "#A785FF", cursor: "pointer" }}>
+                -Terms of Services && Privacy Policy.
               </span>
             </Text>
           </Center>

@@ -4,7 +4,7 @@ import "../../Styles/Components.css";
 import { AspectRatio, Box, Center, Image, Img, Modal } from "@chakra-ui/react";
 import SliderPics from "./SliderPics";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
-import VideoPlayer from "./VideoModal";
+
 import VideoModal from "./VideoModal";
 export default function SliderFunction() {
   const [current, setCurrent] = useState(0);
@@ -13,10 +13,13 @@ export default function SliderFunction() {
   const length = SliderPics.length;
   let interval;
 
+
+
   //   function get(){
   //     return axios.get("https://glorious-tuna-outfit.cyclic.app/homepage")
   // //  }
-  const imageHandler = () => {
+  const imageHandler = (videoSrc) => {
+    
     setImageClick(true);
     clearInterval(interval);
   };
@@ -71,7 +74,7 @@ export default function SliderFunction() {
                   alt="travel image"
                   className="image"
                   w="200vh"
-                  onClick={imageHandler}
+                  onClick={() => imageHandler(item.videoSrc)}
                 />
               )}
             </Center>

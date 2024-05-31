@@ -9,6 +9,8 @@ const initialState={
   auth: false,
   alert: false,
   login: false,
+  movies: [],
+  wishList: [],
 }
 
 const AuthContextProvider = ({ children }) => {

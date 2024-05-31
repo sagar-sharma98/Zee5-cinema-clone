@@ -9,9 +9,10 @@
 }
 
 .row__posters {
+    width: 100%;
     display: flex;
     overflow-y: hidden;
-    overflow-x: scroll;
+    overflow-x: auto;
     padding: 0px 20px;
     height: 170px;
     align-items: center;
@@ -31,12 +32,13 @@
 }
 
 .row__poster {
-    height: 138px;
+    height: 150px;
     margin-right: 10px;
     width: 100%;
     transition: transform 450ms;
-    object-fit: contain;
+    object-fit: cover;
     border-radius: 4px;
+    min-width: 250px
 }
 
 .row__poster:hover {

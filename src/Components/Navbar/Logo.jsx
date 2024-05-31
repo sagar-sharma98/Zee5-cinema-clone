@@ -13,6 +13,7 @@ import {
   MenuList,
 } from "@chakra-ui/react";
 import { DragHandleIcon } from "@chakra-ui/icons";
+import { NavLink } from "react-router-dom";
 export default function Logo() {
   return (
     <Flex>
@@ -30,25 +31,31 @@ export default function Logo() {
               bg="#0F0617"
               _hover={{ background: "#0F0617", textDecoration: "underline" }}
             >
-              <BreadcrumbLink href="/">Home</BreadcrumbLink>
+              <NavLink to="/">Home</NavLink>
             </BreadcrumbItem>
             <BreadcrumbItem
               bg="#0F0617"
               _hover={{ background: "#0F0617", textDecoration: "underline" }}
             >
-              <BreadcrumbLink href="/movies">Movies</BreadcrumbLink>
+              <NavLink to="/movies">Movies</NavLink>
             </BreadcrumbItem>
             <BreadcrumbItem
               bg="#0F0617"
               _hover={{ background: "#0F0617", textDecoration: "underline" }}
             >
-              <BreadcrumbLink href="/music">Music</BreadcrumbLink>
+              <NavLink to="/music">Music</NavLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem
+              bg="#0F0617"
+              _hover={{ background: "#0F0617", textDecoration: "underline" }}
+            >
+              <NavLink to="/wishlist">Wishlist</NavLink>
             </BreadcrumbItem>
           </Breadcrumb>
         </Box>
 
         <Box pl={3}>
-          <Menu>
+          {/* <Menu>
             <MenuButton
               as={DragHandleIcon}
               aria-label="Options"
@@ -77,7 +84,8 @@ export default function Logo() {
                 </MenuItem>
               ))}
             </MenuList>
-          </Menu>
+          </Menu> */}
+
         </Box>
       </HStack>
     </Flex>
