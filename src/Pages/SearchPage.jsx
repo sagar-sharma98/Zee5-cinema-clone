@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Grid, GridItem, Heading, Image } from "@chakra-ui/react";
+import { Box, Grid, GridItem, Heading, Image, SimpleGrid } from "@chakra-ui/react";
 import "../Styles/Row.css";
 import { useNavigate, useParams } from "react-router-dom";
 import Footer from "./Footer";
@@ -39,14 +39,14 @@ export default function SearchPage() {
   return (
     <>
     <Navbar/>
-    <Box w="100vw" h="100vh" p="20px" backgroundColor="black">
+    <Box   h="100%" w="100%" p="20px" backgroundColor="black">
       <Heading color="white" textAlign="start">
        {`${title} : ${search}`}
       </Heading>
-      <Grid templateColumns="repeat(5, 1fr)" pt="2rem" gap={6}>
+      <SimpleGrid minChildWidth="260px" pt="2rem" gap={6}>
         {movies &&
           movies.map((movie) => (
-            <GridItem className="row__poster">
+            <Box className="row__poster">
               <Image
                 objectFit="cover"
                 w="100%"
@@ -57,9 +57,9 @@ export default function SearchPage() {
                 onClick={() => imageHandler(movie._id)}
               />
               {/* <Text id="title">title</Text> */}
-            </GridItem>
+            </Box>
           ))}
-      </Grid>
+      </SimpleGrid>
     </Box>
     <Footer/>
     </>

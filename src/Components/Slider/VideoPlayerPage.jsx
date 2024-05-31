@@ -18,7 +18,7 @@ import { addWishlist } from "../../Context/AuthContext/Action";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../../Pages/Footer";
 
-function VideoPlayerPage() {
+function VideoPlayerPage({wishlist = true}) {
   const [movie, setMovie] = useState();
   const [movies, setMovies] = useState([]);
   const { id } = useParams();
@@ -114,7 +114,8 @@ function VideoPlayerPage() {
                 <Heading color="white">{movie.title}</Heading>
                 <Text>{movie.description}</Text>
                 <Button
-                  colorScheme="purple"
+                  // backgroundColor="white"
+                  colorScheme= "purple"
                   width="10rem"
                   onClick={() => wishlistBtnHandler(movie._id)}
                 >

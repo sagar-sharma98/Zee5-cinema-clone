@@ -28,7 +28,7 @@ export default function Wishlist() {
   return (
     <>
       <Navbar />
-      <Box w="100vw" h="100vh" p="20px" backgroundColor="black">
+      <Box h="100vh" p="20px" backgroundColor="black">
         <Heading color="white" textAlign="start">
           Wishlist:
         </Heading>
