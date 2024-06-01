@@ -40,23 +40,47 @@ export default function Login() {
   };
 
   const handleClick = async () => {
+    // try {
+    //   await signInWithEmailAndPassword(
+    //     firebaseAuth,
+    //     loginData.email,
+    //     loginData.password
+    //   );
+    //   dispatch(LoginSuccess(true));
+    //   navigate("/");
+    // } catch (error) {
+    //   toast({
+    //     title: "Login failed.",
+    //     description: "Enter the correct email and password, or go to signup.",
+    //     status: "error",
+    //     duration: 9000,
+    //     isClosable: true,
+    //     position: "top",
+    //   });
+    //   console.log(error);
+    // }
+    
     try {
-      await signInWithEmailAndPassword(
-        firebaseAuth,
-        loginData.email,
-        loginData.password
-      );
+      const response = await fetch("https://academics.newtonschool.co/api/v1/user/login", {
+        method: "POST",
+        headers: {
+          'projectId': '80bobsy2tlw7',
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+  
+          email : loginData.email,
+          password : loginData.password,
+          appType : "ott",
+        }),
+      })
+      const result = await response.json();
+      console.log(result);
+      localStorage.setItem("token", result.token);
       dispatch(LoginSuccess(true));
       navigate("/");
+
     } catch (error) {
-      toast({
-        title: "Login failed.",
-        description: "Enter the correct email and password, or go to signup.",
-        status: "error",
-        duration: 9000,
-        isClosable: true,
-        position: "top",
-      });
       console.log(error);
     }
   };

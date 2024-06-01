@@ -43,10 +43,12 @@ export default function SearchPage() {
       <Heading color="white" textAlign="start">
        {`${title} : ${search}`}
       </Heading>
-      <SimpleGrid minChildWidth="260px" pt="2rem" gap={6}>
+      <Grid templateColumns="repeat(auto-fill, 260px)" pt="2rem" gap={6}>
         {movies &&
           movies.map((movie) => (
-            <Box className="row__poster">
+            <GridItem className="row__poster" key={movie._id
+
+            }>
               <Image
                 objectFit="cover"
                 w="100%"
@@ -57,9 +59,9 @@ export default function SearchPage() {
                 onClick={() => imageHandler(movie._id)}
               />
               {/* <Text id="title">title</Text> */}
-            </Box>
+            </GridItem>
           ))}
-      </SimpleGrid>
+      </Grid>
     </Box>
     <Footer/>
     </>

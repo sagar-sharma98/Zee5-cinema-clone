@@ -11,7 +11,7 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
-import { NavLink } from "react-router-dom";
+import { NavLink, json } from "react-router-dom";
 import { CloseIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -37,6 +37,7 @@ export default function Register() {
   };
 
   const handleClick = async () => {
+    console.log(data);
     // try {
     //   const userDetails = await createUserWithEmailAndPassword(
     //     firebaseAuth, data.email, data.password
@@ -61,18 +62,21 @@ export default function Register() {
         {
           method: "POST",
           headers: {
-            'projectId': '80bobsy2tlw7'
+            'projectId': '80bobsy2tlw7',
+            "Content-Type": "application/json"
           },
-          body: {
-            name: "test",
-            email: data.email,
-            password: data.password,
-            appType: "ott",
-          },
+          body: JSON.stringify({
+            name : data.name,
+            email : data.email,
+            password : data.password,
+            appType : "ott",
+          }),
         }
       );
       const result = await response.json();
-      console.log(result);
+      console.log(result.data);
+      localStorage.setItem("token", result.token);
+      navigate("/login");
     } catch (error) {
       console.log(error);
     }

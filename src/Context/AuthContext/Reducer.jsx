@@ -11,19 +11,19 @@ const reducer = (state, action) => {
       return { ...state, auth: action.payload };
     case "ALERT_SUCCESS":
       return { ...state, alert: action.payload };
-    case "ADD_WISHLIST":
-      const item = state.movies.find((movie) => movie._id === action.payload);
-      const findItem = state.wishList.find(
-        (movie) => movie._id === action.payload
-      );
-      console.log(item);
+    // case "ADD_WISHLIST":
+    //   const item = state.movies.find((movie) => movie._id === action.payload);
+    //   const findItem = state.wishList.find(
+    //     (movie) => movie._id === action.payload
+    //   );
+    //   console.log(item);
 
-      if (!findItem)
-        return {
-          ...state,
-          wishList: [...state.wishList, item],
-        };
-      return state;
+    //   if (!findItem)
+    //     return {
+    //       ...state,
+    //       wishList: [...state.wishList, item],
+    //     };
+    //   return state;
     case "REMOVE_WISHLIST":
       const items = state.wishList.filter(
         (movie) => movie._id !== action.payload

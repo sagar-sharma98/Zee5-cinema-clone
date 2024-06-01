@@ -26,6 +26,12 @@ function VideoPlayerPage({wishlist = true}) {
   const { dispatch } = useContext(AuthContext);
   const isLargeRow = true;
 
+  const token = localStorage.getItem("token");
+
+  if(!token){
+    navigate('/login');
+  }
+
   const fetchMovieData = async () => {
     try {
       const response = await fetch(
@@ -62,8 +68,27 @@ function VideoPlayerPage({wishlist = true}) {
   //   }
   // };
   console.log(id);
-  const wishlistBtnHandler = (id) => {
-    dispatch(addWishlist(id));
+  const wishlistBtnHandler = async(id) => {
+    const token = localStorage.getItem("token");
+    console.log(id, typeof(id));
+    console.log(token);
+    try {
+      const response = await fetch("https://academics.newtonschool.co/api/v1/ott/watchlist/like", {
+        method: "PATCH",
+        headers: {
+          "projectID" : "80bobsy2tlw7",
+          'Authorization': `Bearer ${token}`,  
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify( {
+          showId: id
+        })
+      })
+      const result = await response.json();
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
     navigate("/wishlist");
   };
 
