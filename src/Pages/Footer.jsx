@@ -1,12 +1,25 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { GrYoutube } from "react-icons/gr";
 import { RiInstagramFill } from "react-icons/ri";
 import { FaFacebookSquare } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import styles from "../Styles/foot.module.css";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "@chakra-ui/react";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, useToast } from "@chakra-ui/react";
 
 const Footer = () => {
+  const toast = useToast();
+
+  const showToast = () => {
+    toast({
+      title: "Sorry",
+      description: "Work in progress.",
+      status: "error",
+      duration: 2000,
+      isClosable: true,
+      position: "top",
+    })
+  }
 
   return (
     <div style={{ backgroundColor:'#0f0617', marginTop: '2rem'}}>
@@ -40,19 +53,19 @@ const Footer = () => {
       <div className={styles.link}>
         <Breadcrumb separator="|">
           <BreadcrumbItem>
-            <BreadcrumbLink href="/aboutus">About us</BreadcrumbLink>
+            <BreadcrumbLink onClick={showToast}>About us</BreadcrumbLink>
           </BreadcrumbItem>
 
           <BreadcrumbItem>
-            <BreadcrumbLink href="#">Help Center</BreadcrumbLink>
+            <BreadcrumbLink onClick={showToast}>Help Center</BreadcrumbLink>
           </BreadcrumbItem>
 
           <BreadcrumbItem isCurrentPage>
-            <BreadcrumbLink href="#">Privacy Policy</BreadcrumbLink>
+            <BreadcrumbLink onClick={showToast}>Privacy Policy</BreadcrumbLink>
           </BreadcrumbItem>
 
           <BreadcrumbItem isCurrentPage>
-            <BreadcrumbLink href="#">Terms of Use</BreadcrumbLink>
+            <BreadcrumbLink onClick={showToast}>Terms of Use</BreadcrumbLink>
           </BreadcrumbItem>
         </Breadcrumb>
         <br />
@@ -62,96 +75,96 @@ const Footer = () => {
         <div>
           <p>Populat TVShows</p>
           <div>
-            <a href="/">Kumkum Bhagya</a>
+            <NavLink to="/dummylink">Kumkum Bhagya</NavLink>
           </div>
           <div>
             {" "}
-            <a href="/">Kundali Bhagya</a>
+            <NavLink to="/dummylink">Kundali Bhagya</NavLink>
           </div>
           <div>
-            <a href="/">Bhagya Lakshmi</a>
+            <NavLink to="/dummylink">Bhagya Lakshmi</NavLink>
           </div>
           <div>
-            <a href="/">Tujhse Hai Rabta</a>
+            <NavLink to="/dummylink">Tujhse Hai Rabta</NavLink>
           </div>
           <div>
-            <a href="/">Kyun Riston me Khatti Batti</a>
+            <NavLink to="/dummylink">Kyun Riston me Khatti Batti</NavLink>
           </div>
         </div>
         <div>
           <p>Premium Movies</p>
           <div>
-            <a href="/">Kya Meri Sonam Gupta Bewafa Hai ?</a>
+            <NavLink to="/dummylink">Kya Meri Sonam Gupta Bewafa Hai ?</NavLink>
           </div>
           <div>
             {" "}
-            <a href="/">Helmet</a>
+            <NavLink to="/dummylink">Helmet</NavLink>
           </div>
           <div>
-            <a href="/">200 Halla Ho</a>
+            <NavLink to="/dummylink">200 Halla Ho</NavLink>
           </div>
           <div>
-            <a href="/">14 Phere</a>
+            <NavLink to="/dummylink">14 Phere</NavLink>
           </div>
           <div>
-            <a href="/">Dial 100</a>
+            <NavLink to="/dummylink">Dial 100</NavLink>
           </div>
         </div>
         <div>
           <p>Popular LIVE TV Channels</p>
           <div>
-            <a href="/">Ajj Tak</a>
+            <NavLink to="/dummylink">Ajj Tak</NavLink>
           </div>
           <div>
             {" "}
-            <a href="/"> Zee News</a>
+            <NavLink to="/dummylink"> Zee News</NavLink>
           </div>
           <div>
-            <a href="/">Zee Tv HD</a>
+            <NavLink to="/dummylink">Zee Tv HD</NavLink>
           </div>
           <div>
-            <a href="/">&TV HD</a>
+            <NavLink to="/dummylink">&TV HD</NavLink>
           </div>
           <div>
-            <a href="/">Zee Marathi HD</a>
+            <NavLink to="/dummylink">Zee Marathi HD</NavLink>
           </div>
         </div>
         <div>
           <p>Popular Web Series</p>
           <div>
-            <a href="/">Sunflower</a>
+            <NavLink to="/dummylink">Sunflower</NavLink>
           </div>
           <div>
             {" "}
-            <a href="/">Jeet Ki Zid</a>
+            <NavLink to="/dummylink">Jeet Ki Zid</NavLink>
           </div>
           <div>
-            <a href="/">Bichoo Ka Khel</a>
+            <NavLink to="/dummylink">Bichoo Ka Khel</NavLink>
           </div>
           <div>
-            <a href="/">State of Seige</a>
+            <NavLink to="/dummylink">State of Seige</NavLink>
           </div>
           <div>
-            <a href="/">Naxalbari</a>
+            <NavLink to="/dummylink">Naxalbari</NavLink>
           </div>
         </div>
         <div>
           <p>Bollywood Top Celebrities</p>
           <div>
-            <a href="/">Suuny Leone</a>
+            <NavLink to="/dummylink">Suuny Leone</NavLink>
           </div>
           <div>
             {" "}
-            <a href="/">Disha patani</a>
+            <NavLink to="/dummylink">Disha patani</NavLink>
           </div>
           <div>
-            <a href="/">Deepika Padukone</a>
+            <NavLink to="/dummylink">Deepika Padukone</NavLink>
           </div>
           <div>
-            <a href="/">Salman Khan</a>
+            <NavLink to="/dummylink">Salman Khan</NavLink>
           </div>
           <div>
-            <a href="/">Nora Fatehi</a>
+            <NavLink to="/dummylink">Nora Fatehi</NavLink>
           </div>
         </div>
       </div>

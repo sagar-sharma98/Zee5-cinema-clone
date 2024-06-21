@@ -8,6 +8,10 @@ import {
   Button,
   Icon,
   Tag,
+  Avatar,
+  useDisclosure,
+  Popover, PopoverContent, PopoverHeader, PopoverArrow, PopoverCloseButton, PopoverBody, PopoverFooter, ButtonGroup,
+  position
 } from "@chakra-ui/react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { SearchIcon } from "@chakra-ui/icons";
@@ -16,12 +20,19 @@ import { AuthContext } from "../../Context/AuthContext/AuthContext";
 import { firebaseAuth } from "../../firebase-auth";
 import { signOut } from "firebase/auth";
 import { LoginSuccess, LoginFailure } from "../../Context/AuthContext/Action";
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 
 export default function MenuLink() {
+  const [popoOver, setPopOver] = useState(false);
   const { state, dispatch } = useContext(AuthContext);
   const inputRef = useRef(null);
   const navigate = useNavigate();
+  const { isOpen, onToggle, onClose } = useDisclosure()
+
+  const username = localStorage.getItem("zee5username");
+  const user = username[0].toUpperCase() + username.slice(1);
+  console.log(user);
+
   // const loginHandler = (e) => {
   //   dispatch(LoginSuccess(true));
   // }
@@ -29,8 +40,9 @@ export default function MenuLink() {
   const logoutHandler = () => {
     dispatch(LoginFailure(false));
     signOut(firebaseAuth);
-    localStorage.removeItem("token");
+    localStorage.removeItem("zee5usertoken");
     localStorage.removeItem("user");
+    navigate("/login");
   };
 
   const submitHandler = (e) => {
@@ -63,19 +75,38 @@ export default function MenuLink() {
           </form>
         </Box>
         <Box>
-          {state.login === true ? (
-            <Button
-              size="sm"
-              fontSize={10}
-              color="white"
-              bg="#0F0617"
-              padding={3}
-              variant="outline"
-              onClick={logoutHandler}
-              _hover={{ background: "white", color: "black" }}
-            >
-              <NavLink to={"/login"}>LOGOUT</NavLink>
-            </Button>
+          {state.login === true ? ( 
+            
+             <>
+             <Avatar src='https://www.shareicon.net/data/512x512/2016/05/24/770137_man_512x512.png' name={user} onClick={onToggle} cursor="pointer"/>
+             <Box position="relative" bottom="3rem">
+      <Popover
+        returnFocusOnClose={false}
+        isOpen={isOpen}
+        onClose={onClose}
+        placement='right'
+        closeOnBlur={false}
+        
+      >
+        <PopoverContent bgColor="gray.900" >
+          <PopoverHeader fontWeight='semibold' border="none">Confirmation</PopoverHeader>
+          <PopoverArrow />
+          <PopoverCloseButton />
+          <PopoverBody>
+            {user}, 
+            Are you sure you want to log out?
+          </PopoverBody>
+          <PopoverFooter display='flex' justifyContent='flex-end' border="none">
+            <ButtonGroup size='sm'>
+              <Button variant='outline' onClick={onClose} bgColor="white" color="black" >Cancel</Button>
+              <Button colorScheme="purple" onClick={logoutHandler} _hover={{ background: "#8230E9", color: "white" }}>Logout</Button>
+            </ButtonGroup>
+          </PopoverFooter>
+        </PopoverContent>
+      </Popover>
+      </Box>
+             </>
+            
           ) : (
             <Button
               size="sm"
@@ -112,7 +143,7 @@ export default function MenuLink() {
               _hover={{ background: "#8230E9", color: "white" }}
               leftIcon={<Icon as={RiVipCrownFill} width="18px" height="18px" />}
             >
-              <NavLink to={"/premiumplan"}>BUY PLAN</NavLink>
+              <NavLink to="/premiumplan">BUY PLAN</NavLink>
             </Button>
           )}
         </Box>

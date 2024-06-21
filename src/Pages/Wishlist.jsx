@@ -18,7 +18,8 @@ export default function Wishlist() {
   //   document.getElementById("title").style.display = "none";
   // }
   const isLargeRow = false;
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("zee5usertoken");
+  console.log(token);
 
   if(!token){
     navigate('/login');
@@ -39,6 +40,7 @@ export default function Wishlist() {
       setWishList(result.data.shows)
     } catch (error) {
       console.log(error);
+      navigate('/login')
     }
   };
 

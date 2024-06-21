@@ -76,12 +76,29 @@ export default function Login() {
       })
       const result = await response.json();
       console.log(result);
-      localStorage.setItem("token", result.token);
+      localStorage.setItem("zee5usertoken", result.token);
+      localStorage.setItem("zee5username", result.data.user.name);
       dispatch(LoginSuccess(true));
+      toast({
+        title: "Login failed.",
+        description: "Welcome, login successful.",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+        position: "top",
+      });
       navigate("/");
 
     } catch (error) {
       console.log(error);
+      toast({
+            title: "Login failed.",
+            description: "Enter the correct email and password, or go to signup.",
+            status: "error",
+            duration: 9000,
+            isClosable: true,
+            position: "top",
+          });
     }
   };
 

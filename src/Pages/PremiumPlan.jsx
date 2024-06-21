@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, Flex, Image } from "@chakra-ui/react";
+import { Box, Button, Checkbox, Flex, Image, useToast } from "@chakra-ui/react";
 import React,{ useContext } from "react";
 import styles from "../Styles/plan.module.css";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -8,19 +8,20 @@ import { AuthContext } from "../Context/AuthContext/AuthContext";
 import Login from "./Login"
 
 const PremiumPlan = () => {
-  const navigate = useNavigate();
-  const click = () => {
-    navigate("/payment");
-  };
+  const toast = useToast();
 
-  
-  const {state} = useContext(AuthContext);
-
-  if(state.auth === false){
-    return(
-      <Login />
-    )
+  const showToast = () => {
+    toast({
+      title: "Sorry",
+      description: "Work in progress.",
+      status: "error",
+      duration: 2000,
+      isClosable: true,
+      position: "top",
+    })
   }
+  
+  
 
   return (
     <Box>
@@ -174,7 +175,7 @@ const PremiumPlan = () => {
             <Box>
               <br />
               <br />
-              <Button onClick={click} colorScheme="purple" w="90%" size="md">
+              <Button onClick={showToast} colorScheme="purple" w="90%" size="md">
                 Continue with 699
               </Button>
             </Box>

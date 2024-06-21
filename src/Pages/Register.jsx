@@ -75,10 +75,28 @@ export default function Register() {
       );
       const result = await response.json();
       console.log(result.data);
-      localStorage.setItem("token", result.token);
+      console.log(result);
+      localStorage.setItem("zee5usertoken", result.token);
+      localStorage.setItem("zee5username", result.data.user.name);
+      toast({
+        title: "Login failed.",
+        description: "Your account has been successfully created.",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+        position: "top",
+      });
       navigate("/login");
     } catch (error) {
       console.log(error);
+      toast({
+            title: "Signup failed.",
+             description: "Please enter the correct details.",
+            status: "error",
+            duration: 9000,
+            isClosable: true,
+            position: "top",
+          });
     }
   };
 

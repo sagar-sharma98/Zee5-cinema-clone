@@ -10,6 +10,7 @@ import PremiumPlan from './PremiumPlan'
 import Register from './Register'
 import VideoPlayerPage from '../Components/Slider/VideoPlayerPage'
 import SearchPage from './SearchPage'
+import DummyLink from './DummyLink'
 
 export default function AllRoutes() {
   return (
@@ -17,6 +18,7 @@ export default function AllRoutes() {
         <Route path="/" element={<Homepage />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/music" element={<Music/>}></Route>
+        <Route path="/dummylink" element={<DummyLink/>}></Route>
         <Route path="/movies" element={<Movies />}></Route>
         <Route path="/wishlist" element={<Wishlist/>}></Route>
         <Route path="/videoplayer/:id" element={<VideoPlayerPage/>}></Route>

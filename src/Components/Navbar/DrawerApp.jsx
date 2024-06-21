@@ -19,12 +19,26 @@ import {
   DrawerFooter,
   AccordionIcon,
   Text,
-  useDisclosure
+  useDisclosure,
+  useToast
 } from "@chakra-ui/react";
+import { NavLink } from "react-router-dom";
 
 export default function DrawerApp() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
+  const toast = useToast();
+
+  const showToast = () => {
+    toast({
+      title: "Sorry",
+      description: "Work in progress.",
+      status: "error",
+      duration: 2000,
+      isClosable: true,
+      position: "top",
+    })
+  }
   return (
     <HStack>
       <Box>
@@ -66,35 +80,35 @@ export default function DrawerApp() {
                     </AccordionButton>
                   </h2>
                   <AccordionPanel pb={4}>
-                    <Link href="/movies">TV Shows</Link>
+                    <NavLink to="/movies">TV Shows</NavLink>
                     <br />
-                    <Link href="/movies">Movies</Link>
+                    <NavLink to="/movies">Movies</NavLink>
                     <br />
-                    <Link href="/">Web Series</Link>
+                    <NavLink to="/movies">Web Series</NavLink>
                     <br />
-                    <Link href="/">News</Link>
+                    <NavLink to="/dummylink">News</NavLink>
                     <br />
-                    <Link href="/">Eduaraa</Link>
+                    <NavLink to="/dummylink">Eduaraa</NavLink>
                     <br />
-                    <Link href="/">Premium</Link>
+                    <NavLink to="/dummylink">Premium</NavLink>
                     <br />
-                    <Link href="/">Live Tv</Link>
+                    <NavLink to="/dummylink">Live Tv</NavLink>
                     <br />
-                    <Link href="/">Music</Link>
+                    <NavLink to="/music">Music</NavLink>
                     <br />
-                    <Link href="/">ZEEPLEX</Link>
+                    <NavLink to="/dummylink">ZEEPLEX</NavLink>
                     <br />
-                    <Link href="/">Play</Link>
+                    <NavLink to="/dummylink">Play</NavLink>
                     <br />
-                    <Link href="/">Articles</Link>
+                    <NavLink to="/dummylink">Articles</NavLink>
                     <br />
-                    <Link href="/">Kids</Link>
+                    <NavLink to="/dummylink">Kids</NavLink>
                     <br />
-                    <Link href="/">Videos</Link>
+                    <NavLink to="/movies">Videos</NavLink>
                     <br />
-                    <Link href="/">Stories</Link>
+                    <NavLink to="/dummylink">Stories</NavLink>
                     <br />
-                    <Link href="/">Channels</Link>
+                    <NavLink to="/dummylink">Channels</NavLink>
                     <br />
                   </AccordionPanel>
                 </AccordionItem>
@@ -109,25 +123,25 @@ export default function DrawerApp() {
                     </AccordionButton>
                   </h2>
                   <AccordionPanel pb={4}>
-                    <Link>Buy Plan</Link>
+                    <NavLink to="/premiumplan">Buy Plan</NavLink>
                     <br />
                     <Link>Have a Prepaid code?</Link>
                   </AccordionPanel>
                 </AccordionItem>
 
-                <AccordionItem>
+                <AccordionItem >
                   <h2>
                     <AccordionButton>
-                      <Box flex="1" textAlign="left">
+                      <Box flex="1" textAlign="left" >
                         Settings
                       </Box>
                       <AccordionIcon />
                     </AccordionButton>
                   </h2>
                   <AccordionPanel pb={4}>
-                    <Link>Language</Link>
+                    <Link onClick={showToast}>Language</Link>
                     <br />
-                    <Link>Reset setting to default</Link>
+                    <Link onClick={showToast}>Reset setting to default</Link>
                   </AccordionPanel>
                 </AccordionItem>
 
@@ -141,15 +155,15 @@ export default function DrawerApp() {
                     </AccordionButton>
                   </h2>
                   <AccordionPanel pb={4}>
-                    <Link>About us</Link>
+                    <Link onClick={showToast}>About us</Link>
                     <br />
-                    <Link>Help Center</Link>
+                    <Link onClick={showToast}>Help Center</Link>
                     <br />
-                    <Link>Content Redressal Mechanism</Link>
+                    <Link onClick={showToast}>Content Redressal Mechanism</Link>
                     <br />
-                    <Link>Terms of use</Link>
+                    <Link onClick={showToast}>Terms of use</Link>
                     <br />
-                    <Link>Privacy Policy</Link>
+                    <Link onClick={showToast}>Privacy Policy</Link>
                     <br />
                   </AccordionPanel>
                 </AccordionItem>
