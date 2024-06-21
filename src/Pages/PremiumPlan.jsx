@@ -1,5 +1,5 @@
 import { Box, Button, Checkbox, Flex, Image, useToast } from "@chakra-ui/react";
-import React,{ useContext } from "react";
+import React,{ useContext, useEffect } from "react";
 import styles from "../Styles/plan.module.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { CloseIcon, QuestionOutlineIcon } from "@chakra-ui/icons";
@@ -8,7 +8,12 @@ import { AuthContext } from "../Context/AuthContext/AuthContext";
 import Login from "./Login"
 
 const PremiumPlan = () => {
+  const navigate = useNavigate();
   const toast = useToast();
+  const token = localStorage.getItem("zee5usertoken");
+  console.log(token);
+
+ 
 
   const showToast = () => {
     toast({
@@ -21,6 +26,11 @@ const PremiumPlan = () => {
     })
   }
   
+  useEffect(() => {
+    if(!token){
+      navigate('/login');
+    }
+  }, [])
   
 
   return (

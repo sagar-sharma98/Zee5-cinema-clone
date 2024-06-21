@@ -26,7 +26,7 @@ function VideoPlayerPage({wishlist = true}) {
   const { dispatch } = useContext(AuthContext);
   const isLargeRow = true;
 
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("zee5usertoken");
 
   if(!token){
     navigate('/login');
@@ -69,7 +69,7 @@ function VideoPlayerPage({wishlist = true}) {
   // };
   console.log(id);
   const wishlistBtnHandler = async(id) => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("zee5usertoken");
     console.log(id, typeof(id));
     console.log(token);
     try {

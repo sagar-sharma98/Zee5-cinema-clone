@@ -28,10 +28,17 @@ export default function MenuLink() {
   const inputRef = useRef(null);
   const navigate = useNavigate();
   const { isOpen, onToggle, onClose } = useDisclosure()
+  let user;
 
   const username = localStorage.getItem("zee5username");
-  const user = username[0].toUpperCase() + username.slice(1);
-  console.log(user);
+  if(username){
+    user = username[0].toUpperCase() + username.slice(1);
+  
+  }
+  
+
+
+
 
   // const loginHandler = (e) => {
   //   dispatch(LoginSuccess(true));
@@ -41,7 +48,7 @@ export default function MenuLink() {
     dispatch(LoginFailure(false));
     signOut(firebaseAuth);
     localStorage.removeItem("zee5usertoken");
-    localStorage.removeItem("user");
+    localStorage.removeItem("zee5username");
     navigate("/login");
   };
 
@@ -50,6 +57,8 @@ export default function MenuLink() {
     const search = inputRef.current.value;
     navigate(`/searchpage/Search/${search}`);
   };
+
+ 
 
 
   return (
@@ -78,7 +87,7 @@ export default function MenuLink() {
           {state.login === true ? ( 
             
              <>
-             <Avatar src='https://www.shareicon.net/data/512x512/2016/05/24/770137_man_512x512.png' name={user} onClick={onToggle} cursor="pointer"/>
+             <Avatar src='https://www.shareicon.net/data/512x512/2016/05/24/770137_man_512x512.png'  onClick={onToggle} cursor="pointer"/>
              <Box position="relative" bottom="3rem">
       <Popover
         returnFocusOnClose={false}
@@ -93,7 +102,7 @@ export default function MenuLink() {
           <PopoverArrow />
           <PopoverCloseButton />
           <PopoverBody>
-            {user}, 
+            {user? user : ""}, 
             Are you sure you want to log out?
           </PopoverBody>
           <PopoverFooter display='flex' justifyContent='flex-end' border="none">
