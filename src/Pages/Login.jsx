@@ -80,8 +80,8 @@ export default function Login() {
       localStorage.setItem("zee5username", result.data.user.name);
       dispatch(LoginSuccess(true));
       toast({
-        title: "Login failed.",
-        description: "Welcome, login successful.",
+        title: "Welcome",
+        description: "login successful.",
         status: "success",
         duration: 2000,
         isClosable: true,
