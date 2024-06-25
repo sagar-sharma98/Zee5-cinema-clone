@@ -79,7 +79,7 @@ export default function Register() {
       localStorage.setItem("zee5usertoken", result.token);
       localStorage.setItem("zee5username", result.data.user.name);
       toast({
-        title: "Login failed.",
+        title: "Signup successful.",
         description: "Your account has been successfully created.",
         status: "success",
         duration: 2000,
