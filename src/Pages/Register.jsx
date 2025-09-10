@@ -50,10 +50,17 @@ export default function Register() {
       navigate("/login");
     } catch (error) {
       toast({
+<<<<<<< HEAD
         title: "Signup failed.",
         description: "Please enter the correct details.",
         status: "error",
         duration: 9000,
+=======
+        title: "Signup successful.",
+        description: "Your account has been successfully created.",
+        status: "success",
+        duration: 2000,
+>>>>>>> 1056b471198119a5cc0c4b8af9124f0ea2521425
         isClosable: true,
         position: "top",
       });

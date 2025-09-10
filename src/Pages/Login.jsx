@@ -50,10 +50,17 @@ export default function Login() {
       navigate("/");
     } catch (error) {
       toast({
+<<<<<<< HEAD
         title: "Login failed.",
         description: "Enter the correct email and password, or go to signup.",
         status: "error",
         duration: 9000,
+=======
+        title: "Welcome",
+        description: "login successful.",
+        status: "success",
+        duration: 2000,
+>>>>>>> 1056b471198119a5cc0c4b8af9124f0ea2521425
         isClosable: true,
         position: "top",
       });
