@@ -17,63 +17,69 @@ export default function Wishlist() {
   // if(hover){
   //   document.getElementById("title").style.display = "none";
   // }
+
   const isLargeRow = false;
-  const token = localStorage.getItem("zee5usertoken");
   console.log(token);
 
-  if(!token){
-    navigate('/login');
+  if (!token) {
+    navigate("/login");
   }
 
-  const fetchWishlist = async () => {
-   
-    try {
-      const response = await fetch("https://academics.newtonschool.co/api/v1/ott/watchlist/like", {
-      method: "GET",
-      headers: {
-        "projectID" : "80bobsy2tlw7",
-        'Authorization': `Bearer ${token}`,  
-      }
-      });
-      const result = await response.json();
-      console.log(result.data.shows);
-      setWishList(result.data.shows)
-    } catch (error) {
-      console.log(error);
-      navigate('/login')
-    }
-  };
+  // const fetchWishlist = async () => {
 
-  const imageHandler = (id) => {
-    navigate(`/videoplayer/${id}`);
-  };
+  //   try {
+  //     const response = await fetch("https://academics.newtonschool.co/api/v1/ott/watchlist/like", {
+  //     method: "GET",
+  //     headers: {
+  //       "projectID" : "80bobsy2tlw7",
+  //       'Authorization': `Bearer ${token}`,
+  //     }
+  //     });
+  //     const result = await response.json();
+  //     console.log(result.data.shows);
+  //     setWishList(result.data.shows)
+  //   } catch (error) {
+  //     console.log(error);
+  //     navigate('/login')
+  //   }
+  // };
 
-  const removeHandler = async (id) => {
-  
-   
-    try {
-      const response = await fetch("https://academics.newtonschool.co/api/v1/ott/watchlist/like", {
-        method: "PATCH",
-        headers: {
-          "projectID" : "80bobsy2tlw7",
-          'Authorization': `Bearer ${token}`,  
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify( {
-          showId: id
-        })
-      })
-      const result = await response.json();
-      console.log(result);
-    } catch (error) {
-      console.log(error);
-    }
-    fetchWishlist();
-  };
+  // const imageHandler = (id) => {
+  //   navigate(`/videoplayer/${id}`);
+  // };
+
+  // const removeHandler = async (id) => {
+  //   try {
+  //     const response = await fetch(
+  //       "https://academics.newtonschool.co/api/v1/ott/watchlist/like",
+  //       {
+  //         method: "PATCH",
+  //         headers: {
+  //           projectID: "80bobsy2tlw7",
+  //           Authorization: `Bearer ${token}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           showId: id,
+  //         }),
+  //       }
+  //     );
+  //     const result = await response.json();
+  //     console.log(result);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  //   fetchWishlist();
+  // };
 
   useEffect(() => {
-    fetchWishlist();
-  },[]);
+    // fetchWishlist();
+    const token = localStorage.getItem("zee5usertoken");
+
+    if (!token) {
+      navigate("/login");
+    }
+  }, []);
   return (
     <>
       <Navbar />
@@ -81,12 +87,10 @@ export default function Wishlist() {
         <Heading color="white" textAlign="start">
           Wishlist:
         </Heading>
-        <Grid templateColumns="repeat(auto-fill, 260px)"  pt="2rem" gap={6}>
+        <Grid templateColumns="repeat(auto-fill, 260px)" pt="2rem" gap={6}>
           {wishList &&
             wishList.map((movie) => (
-              <GridItem className="row__poster" key={movie._id
-
-              }>
+              <GridItem className="row__poster" key={movie._id}>
                 <Image
                   objectFit="cover"
                   w="100%"
@@ -94,7 +98,7 @@ export default function Wishlist() {
                   src={movie.thumbnail}
                   alt="movie poster"
                   backgroundColor="red"
-                  onClick={() => imageHandler(movie._id)}
+                  // onClick={() => imageHandler(movie._id)}
                 />
                 <Button
                   display="flex"
@@ -104,7 +108,7 @@ export default function Wishlist() {
                   colorScheme="black"
                   backgroundColor="black"
                   _hover={{ background: "black", color: "white" }}
-                  onClick={() => removeHandler(movie._id)}
+                  // onClick={() => removeHandler(movie._id)}
                 >
                   Remove
                 </Button>

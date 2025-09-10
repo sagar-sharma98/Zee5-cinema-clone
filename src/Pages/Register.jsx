@@ -38,66 +38,68 @@ export default function Register() {
 
   const handleClick = async () => {
     console.log(data);
-    // try {
-    //   const userDetails = await createUserWithEmailAndPassword(
-    //     firebaseAuth, data.email, data.password
-    //   );
-    //   console.log(userDetails);
-    //   localStorage.setItem("token", userDetails.user.accessToken);
-    //   localStorage.setItem("user", JSON.stringify(userDetails.user));
-    //   navigate("/login");
-    // } catch (error) {
-    //   toast({
-    //     title: "Signup failed.",
-    //     description: "Please enter the correct details.",
-    //     status: "error",
-    //     duration: 9000,
-    //     isClosable: true,
-    //     position: "top",
-    //   });
-
     try {
-      const response = await fetch(
-        "https://academics.newtonschool.co/api/v1/user/signup",
-        {
-          method: "POST",
-          headers: {
-            'projectId': '80bobsy2tlw7',
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            name : data.name,
-            email : data.email,
-            password : data.password,
-            appType : "ott",
-          }),
-        }
+      const userDetails = await createUserWithEmailAndPassword(
+        firebaseAuth,
+        data.email,
+        data.password
       );
-      const result = await response.json();
-      console.log(result.data);
-      console.log(result);
-      localStorage.setItem("zee5usertoken", result.token);
-      localStorage.setItem("zee5username", result.data.user.name);
+      console.log(userDetails);
+      localStorage.setItem("zee5usertoken", userDetails.user.accessToken);
+      localStorage.setItem("zee5username", data.name);
+      navigate("/login");
+    } catch (error) {
       toast({
-        title: "Login failed.",
-        description: "Your account has been successfully created.",
-        status: "success",
-        duration: 2000,
+        title: "Signup failed.",
+        description: "Please enter the correct details.",
+        status: "error",
+        duration: 9000,
         isClosable: true,
         position: "top",
       });
-      navigate("/login");
-    } catch (error) {
-      console.log(error);
-      toast({
-            title: "Signup failed.",
-             description: "Please enter the correct details.",
-            status: "error",
-            duration: 9000,
-            isClosable: true,
-            position: "top",
-          });
     }
+
+    // try {
+    //   const response = await fetch(
+    //     "https://academics.newtonschool.co/api/v1/user/signup",
+    //     {
+    //       method: "POST",
+    //       headers: {
+    //         'projectId': '80bobsy2tlw7',
+    //         "Content-Type": "application/json"
+    //       },
+    //       body: JSON.stringify({
+    //         name : data.name,
+    //         email : data.email,
+    //         password : data.password,
+    //         appType : "ott",
+    //       }),
+    //     }
+    //   );
+    //   const result = await response.json();
+    //   console.log(result.data);
+    //   console.log(result);
+
+    //   toast({
+    //     title: "Login failed.",
+    //     description: "Your account has been successfully created.",
+    //     status: "success",
+    //     duration: 2000,
+    //     isClosable: true,
+    //     position: "top",
+    //   });
+    //   navigate("/login");
+    // } catch (error) {
+    //   console.log(error);
+    //   toast({
+    //         title: "Signup failed.",
+    //          description: "Please enter the correct details.",
+    //         status: "error",
+    //         duration: 9000,
+    //         isClosable: true,
+    //         position: "top",
+    //       });
+    // }
   };
 
   return (

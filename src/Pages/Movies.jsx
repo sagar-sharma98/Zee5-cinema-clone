@@ -9,54 +9,69 @@ export default function Movies() {
   const [moviesData, setMoviesData] = useState([]);
   const [loading, setLoading] = useState(true);
   const { dispatch } = useContext(AuthContext);
-  
-  // const url = "https://movies-api14.p.rapidapi.com/home";
-  // const options = {
-  //   method: "GET",
-  //   headers: {
-  //     "X-RapidAPI-Key": "932cd347acmshe2de3d5a01ef416p107551jsn1010a0bd3184",
-  //     "X-RapidAPI-Host": "movies-api14.p.rapidapi.com",
-  //   },
-  // };
 
-  // const fetchData = useCallback(async () => {
-  //   const response = await fetch(url, options);
-  //   const result = await response.json();
-  //   console.log(result);
-  //   setMoviesData(result);
-  //   setLoading(false);
-  // }, []);
+  const url = "https://imdb236.p.rapidapi.com/api/imdb/top250-movies";
+  const options = {
+    method: "GET",
+    headers: {
+      "X-RapidAPI-Key": "932cd347acmshe2de3d5a01ef416p107551jsn1010a0bd3184",
+      "X-RapidAPI-Host": "imdb236.p.rapidapi.com",
+    },
+  };
 
-  const fetchData = async() => {
+  const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await fetch("https://academics.newtonschool.co/api/v1/ott/show?limit=100", {
-        headers: {
-          "projectID" : "80bobsy2tlw7"
-        }
-      });
+      const response = await fetch(url, options);
       const result = await response.json();
-      console.log(result.data);
-      setMoviesData(result.data);
-      dispatch(addMovies(result.data));
-      
-    } catch (error) {
-      console.log(error);
-    }
-    setLoading(false);
-  }
+      const data = result.slice(100);
+      console.log("API Response:", data);
 
- 
+      // Some RapidAPI movie APIs wrap data in `movies` or similar property
+
+      setMoviesData(data);
+      dispatch(addMovies(data));
+    } catch (error) {
+      console.error("Error fetching movies:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, [dispatch]);
 
   useEffect(() => {
     fetchData();
-    
-  }, [])
+  }, [fetchData]);
+
+  // const fetchData = async() => {
+  //   setLoading(true);
+  //   try {
+  //     const response = await fetch("https://academics.newtonschool.co/api/v1/ott/show?limit=100", {
+  //       headers: {
+  //         "projectID" : "80bobsy2tlw7"
+  //       }
+  //     });
+  //     const result = await response.json();
+  //     console.log(result.data);
+  //     setMoviesData(result.data);
+  //     dispatch(addMovies(result.data));
+
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  //   setLoading(false);
+  // }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <>
       {moviesData.length > 0 && (
-        <div style={{ marginTop: "20px", position: "relative"}} className="movie__rows" >
+        <div
+          style={{ marginTop: "20px", position: "relative" }}
+          className="movie__rows"
+        >
           <Rows
             title="Trending Now"
             movies={moviesData.slice(0, 10)}

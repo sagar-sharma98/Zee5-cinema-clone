@@ -40,79 +40,79 @@ export default function Login() {
   };
 
   const handleClick = async () => {
-    // try {
-    //   await signInWithEmailAndPassword(
-    //     firebaseAuth,
-    //     loginData.email,
-    //     loginData.password
-    //   );
-    //   dispatch(LoginSuccess(true));
-    //   navigate("/");
-    // } catch (error) {
-    //   toast({
-    //     title: "Login failed.",
-    //     description: "Enter the correct email and password, or go to signup.",
-    //     status: "error",
-    //     duration: 9000,
-    //     isClosable: true,
-    //     position: "top",
-    //   });
-    //   console.log(error);
-    // }
-    
     try {
-      const response = await fetch("https://academics.newtonschool.co/api/v1/user/login", {
-        method: "POST",
-        headers: {
-          'projectId': '80bobsy2tlw7',
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-  
-          email : loginData.email,
-          password : loginData.password,
-          appType : "ott",
-        }),
-      })
-      const result = await response.json();
-      console.log(result);
-      localStorage.setItem("zee5usertoken", result.token);
-      localStorage.setItem("zee5username", result.data.user.name);
+      await signInWithEmailAndPassword(
+        firebaseAuth,
+        loginData.email,
+        loginData.password
+      );
       dispatch(LoginSuccess(true));
+      navigate("/");
+    } catch (error) {
       toast({
         title: "Login failed.",
-        description: "Welcome, login successful.",
-        status: "success",
-        duration: 2000,
+        description: "Enter the correct email and password, or go to signup.",
+        status: "error",
+        duration: 9000,
         isClosable: true,
         position: "top",
       });
-      navigate("/");
-
-    } catch (error) {
       console.log(error);
-      toast({
-            title: "Login failed.",
-            description: "Enter the correct email and password, or go to signup.",
-            status: "error",
-            duration: 9000,
-            isClosable: true,
-            position: "top",
-          });
     }
+
+    // try {
+    //   const response = await fetch("https://academics.newtonschool.co/api/v1/user/login", {
+    //     method: "POST",
+    //     headers: {
+    //       'projectId': '80bobsy2tlw7',
+    //       "Content-Type": "application/json"
+    //     },
+    //     body: JSON.stringify({
+
+    //       email : loginData.email,
+    //       password : loginData.password,
+    //       appType : "ott",
+    //     }),
+    //   })
+    //   const result = await response.json();
+    //   console.log(result);
+    //   localStorage.setItem("zee5usertoken", result.token);
+    //   localStorage.setItem("zee5username", result.data.user.name);
+    //   dispatch(LoginSuccess(true));
+    //   toast({
+    //     title: "Login failed.",
+    //     description: "Welcome, login successful.",
+    //     status: "success",
+    //     duration: 2000,
+    //     isClosable: true,
+    //     position: "top",
+    //   });
+    //   navigate("/");
+
+    // } catch (error) {
+    //   console.log(error);
+    //   toast({
+    //         title: "Login failed.",
+    //         description: "Enter the correct email and password, or go to signup.",
+    //         status: "error",
+    //         duration: 9000,
+    //         isClosable: true,
+    //         position: "top",
+    //       });
+    // }
   };
 
   const logoutHandler = () => {
     setLogin(false);
     signOut(firebaseAuth);
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    localStorage.removeItem("zee5usertoken");
+    localStorage.removeItem("zee5username");
     navigate("/");
   };
 
   return (
     <Box h="100vh">
-      <Box w="90%" >
+      <Box w="90%">
         <Flex justify="right">
           <NavLink to="/">
             <CloseIcon color="white" />

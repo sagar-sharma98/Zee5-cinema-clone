@@ -8,8 +8,8 @@ const firebaseConfig = {
   storageBucket: "login-c1d2a.appspot.com",
   messagingSenderId: "328055005848",
   appId: "1:328055005848:web:45998180a734a1969626ed",
-  measurementId: "G-1F5CFGJ76N"
+  measurementId: "G-1F5CFGJ76N",
 };
 
 const app = initializeApp(firebaseConfig);
-export const firebaseAuth  = getAuth(app);
+export const firebaseAuth = getAuth(app);

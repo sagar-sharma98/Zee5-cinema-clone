@@ -21,7 +21,7 @@ export default function AllRoutes() {
         <Route path="/dummylink" element={<DummyLink/>}></Route>
         <Route path="/movies" element={<Movies />}></Route>
         <Route path="/wishlist" element={<Wishlist/>}></Route>
-        <Route path="/videoplayer/:id" element={<VideoPlayerPage/>}></Route>
+        <Route path="/videoplayer" element={<VideoPlayerPage/>}></Route>
         <Route path="/searchpage/:title/:search" element={<SearchPage/>}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/premiumplan" element={<PremiumPlan />}></Route>
@@ -29,3 +29,4 @@ export default function AllRoutes() {
     </Routes>
   )
 }
+s

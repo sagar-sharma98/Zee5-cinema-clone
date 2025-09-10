@@ -8,9 +8,9 @@ const dummy_video = process.env.PUBLIC_URL + "/videos/Dummy_Video.mp4";
 
 const Rows = ({ movies, title, isLargeRow = false, loading }) => {
   const navigate = useNavigate();
-
-  const imageClickHandler = (id) => {
-    navigate(`/videoplayer/${id}`);
+  console.log("row movies data -----", movies);
+  const imageClickHandler = (movie) => {
+    navigate("/videoplayer", { state: { movie } });
   };
   if (loading) {
     return (
@@ -29,12 +29,12 @@ const Rows = ({ movies, title, isLargeRow = false, loading }) => {
         {movies
           ? movies.map((movie) => (
               <Image
-              objectFit="cover"
+                objectFit="cover"
                 className={`row__poster ${isLargeRow && "row__posterLarge"}`}
                 key={movie._id}
-                src={isLargeRow ? movie.thumbnail : movie.thumbnail}
-                alt={movie.title}
-                onClick={() => imageClickHandler(movie._id)}
+                src={isLargeRow ? movie.primaryImage : movie.primaryImage}
+                alt={movie.primaryTitle}
+                onClick={() => imageClickHandler(movie)}
               />
             ))
           : ""}
